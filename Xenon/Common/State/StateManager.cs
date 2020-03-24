@@ -56,10 +56,9 @@ namespace Xenon.Common.State {
 				oldState.ForcePause();
 			}
 
-			int id;
-			States.TryGetValue(currentState, out id);
+			States.TryGetValue(currentState, out int id);
 
-			GameState newState = MiscUtils.KeyByValue(States, id -= 1);
+			var newState = MiscUtils.KeyByValue(States, id -= 1);
 
 			currentState = newState;
 			currentState.Init();
