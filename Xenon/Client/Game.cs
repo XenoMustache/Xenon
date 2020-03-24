@@ -1,5 +1,4 @@
 ﻿using System;
-
 using OpenTK;
 using OpenTK.Graphics;
 using Xenon.Common.State;
@@ -42,6 +41,7 @@ namespace Xenon.Client {
 
 		protected override void OnUnload(EventArgs e) {
 			UnloadEvent(e);
+			stateManager.Unload();
 			base.OnUnload(e); 
 		}
 	}

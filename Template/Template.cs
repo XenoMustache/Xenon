@@ -1,7 +1,7 @@
-﻿using OpenTK;
-using System;
-using Xenon.Client;
+﻿using System;
+using OpenTK;
 using OpenTK.Graphics.OpenGL4;
+using Xenon.Client;
 
 namespace Template {
 	class Template : Game {

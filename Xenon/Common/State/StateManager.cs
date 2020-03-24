@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
 using Xenon.Common.Utilities;
 
 namespace Xenon.Common.State {
@@ -86,9 +86,8 @@ namespace Xenon.Common.State {
 		}
 
 		public void Unload() {
-			foreach (KeyValuePair<GameState, int> state in States) {
-				States.Remove(state.Key);
-				state.Key.Dispose();
+			foreach (var state in States.Keys) {
+				state.Dispose();
 				Dispose();
 			}
 		}
