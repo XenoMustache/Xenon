@@ -2,7 +2,7 @@
 using Xenon.Client.Graphics;
 using Xenon.Common.State;
 
-namespace Template {
+namespace Template.States {
 	public class Triangle : GameState {
 		private Shader shader;
 

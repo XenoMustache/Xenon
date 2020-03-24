@@ -23,10 +23,13 @@ namespace Xenon.Common.State {
 				oldState.ForcePause();
 			}
 
-			GameState newState = MiscUtils.KeyByValue(States, stateId);
-
-			currentState = newState;
+			currentState = MiscUtils.KeyByValue(States, stateId);
 			currentState.Init();
+		}
+
+		public int GetCurrentId() {
+			States.TryGetValue(currentState, out int id);
+			return id;
 		}
 
 		public void GotoNext(bool persist = false) {
@@ -37,10 +40,9 @@ namespace Xenon.Common.State {
 				oldState.ForcePause();
 			}
 
-			int id;
-			States.TryGetValue(currentState, out id);
+			States.TryGetValue(currentState, out int id);
 
-			GameState newState = MiscUtils.KeyByValue(States, id += 1);
+			var newState = MiscUtils.KeyByValue(States, id += 1);
 
 			currentState = newState;
 			currentState.Init();
@@ -78,7 +80,7 @@ namespace Xenon.Common.State {
 			} else throw new Exception("Old GameState not defined");
 		}
 
-		public void AddState(GameState state, int stateId) { States.Add(state, stateId); }
+		public void AddState(GameState state, int id) { States.Add(state, id); }
 
 		public void RemoveState(GameState state) {
 			States.Remove(state);
