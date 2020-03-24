@@ -7,7 +7,7 @@ namespace Xenon.Common.Object {
 		bool disposed = false;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
-		public Componenet () { }
+		public Componenet() { }
 
 		public abstract void Update();
 

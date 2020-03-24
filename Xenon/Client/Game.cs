@@ -21,28 +21,28 @@ namespace Xenon.Client {
 
 		protected override void OnLoad(EventArgs e) {
 			LoadEvent(e);
-			base.OnLoad(e); 
+			base.OnLoad(e);
 		}
 
 		protected override void OnUpdateFrame(FrameEventArgs e) {
 			UpdateEvent(e);
-			base.OnUpdateFrame(e); 
+			base.OnUpdateFrame(e);
 		}
 
 		protected override void OnRenderFrame(FrameEventArgs e) {
 			RenderEvent(e);
-			base.OnRenderFrame(e); 
+			base.OnRenderFrame(e);
 		}
 
 		protected override void OnResize(EventArgs e) {
 			ResizeEvent(e);
-			base.OnResize(e); 
+			base.OnResize(e);
 		}
 
 		protected override void OnUnload(EventArgs e) {
 			UnloadEvent(e);
 			stateManager.Unload();
-			base.OnUnload(e); 
+			base.OnUnload(e);
 		}
 	}
 }

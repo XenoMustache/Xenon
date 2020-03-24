@@ -11,34 +11,34 @@ namespace Template.States {
 		float[] vertices = {
 			-0.5f, -0.5f, 0.0f,
 			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f 
+			 0.0f,  0.5f, 0.0f
 		};
 
 		public override void Init() {
-            GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            vertexBufferObject = GL.GenBuffer();
+			GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			vertexBufferObject = GL.GenBuffer();
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
-            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-            
+			GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
+			GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+
 			shader = new Shader("Shaders/triangle.vert", "Shaders/triangle.frag");
-            shader.Use();
-            vertexArrayObject = GL.GenVertexArray();
-            
+			shader.Use();
+			vertexArrayObject = GL.GenVertexArray();
+
 			GL.BindVertexArray(vertexArrayObject);
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(0);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
-        }
+			GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+			GL.EnableVertexAttribArray(0);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
+		}
 
 		public override void Render() {
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+			GL.Clear(ClearBufferMask.ColorBufferBit);
 
-            shader.Use();
+			shader.Use();
 
-            GL.BindVertexArray(vertexArrayObject);
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
-        }
+			GL.BindVertexArray(vertexArrayObject);
+			GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+		}
 
 		public override void Dispose() {
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);

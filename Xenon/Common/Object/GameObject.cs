@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace Xenon.Common.Object {
 	public abstract class GameObject : IDisposable {
 		protected List<Componenet> components = new List<Componenet>();
-		
+
 		bool disposed = false, pausedUpdate = false, pausedRender = false;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
@@ -23,8 +23,8 @@ namespace Xenon.Common.Object {
 		}
 
 		public virtual void AddComponent(Componenet component) { components.Add(component); }
-		
-		public virtual void RemoveComponent(Componenet component) { 
+
+		public virtual void RemoveComponent(Componenet component) {
 			components.Remove(component);
 			component.Dispose();
 		}
