@@ -32,6 +32,10 @@ namespace Xenon.Common.State {
 			return id;
 		}
 
+		public int GetStateCount() {
+			return States.Count - 1;
+		}
+
 		public void GotoNext(bool persist = false) {
 			if (!persist) {
 				currentState.Dispose();

@@ -32,7 +32,7 @@ namespace Template {
 		protected override void UpdateEvent(FrameEventArgs e) {
 			var input = Keyboard.GetState();
 
-			if (input.IsKeyDown(Key.Right) && lastKeyState.IsKeyUp(Key.Right) && stateManager.GetCurrentId() < 1) {
+			if (input.IsKeyDown(Key.Right) && lastKeyState.IsKeyUp(Key.Right) && stateManager.GetCurrentId() < stateManager.GetStateCount()) {
 				stateManager.GotoNext();
 			}
 
