@@ -21,7 +21,7 @@ namespace Template.States {
 			1, 2, 3
 		};
 
-		public override void Init() {
+		public override void Load() {
 			GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 			vertexBufferObject = GL.GenBuffer();
