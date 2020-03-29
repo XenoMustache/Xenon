@@ -1,7 +1,7 @@
 ﻿namespace Template {
 	class Program {
 		private static void Main() {
-			new Template(800, 600, "Triangle");
+			new Template(800, 600, "Template");
 		}
 	}
 }
