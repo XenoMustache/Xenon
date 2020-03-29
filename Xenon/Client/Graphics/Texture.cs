@@ -5,10 +5,10 @@ using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 
 namespace Xenon.Client.Graphics {
 	public class Texture {
-		public readonly int Handle;
+		public readonly int handle;
 
 		public Texture(string path) {
-			Handle = GL.GenTexture();
+			handle = GL.GenTexture();
 
 			Use();
 
@@ -40,7 +40,7 @@ namespace Xenon.Client.Graphics {
 
 		public void Use(TextureUnit unit = TextureUnit.Texture0) {
 			GL.ActiveTexture(unit);
-			GL.BindTexture(TextureTarget.Texture2D, Handle);
+			GL.BindTexture(TextureTarget.Texture2D, handle);
 		}
 	}
 }
