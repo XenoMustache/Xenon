@@ -7,7 +7,7 @@ namespace Xenon.Client {
 	public abstract class Game : GameWindow {
 
 		public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title) { Run(60.0); }
-		public static readonly string xenonVer = "0.1";
+		public static readonly string xenonVersion = "0.1-pa";
 
 		protected StateManager stateManager = new StateManager();
 
