@@ -10,7 +10,7 @@ namespace Xenon.Common.State {
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 		bool disposed = false, pausedUpdate = false, pausedRender = false;
 
-		public virtual void Init() { }
+		public virtual void Load() { }
 
 		public virtual void Update() {
 			if (!pausedUpdate) objectManager.Update();
