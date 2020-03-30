@@ -16,6 +16,7 @@ namespace Template {
 			stateManager.AddState(new Triangle(), 0);
 			stateManager.AddState(new ElementBufferObjects(), 1);
 			stateManager.AddState(new Textures(), 2);
+			stateManager.AddState(new MultipleTextures(), 3);
 			stateManager.Goto(0, false, true);
 		}
 
