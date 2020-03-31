@@ -21,6 +21,8 @@ namespace Template.States {
 		private Texture texture1, texture2;
 
 		public override void Load() {
+			base.Load();
+
 			GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 			vertexBufferObject = GL.GenBuffer();
@@ -59,6 +61,8 @@ namespace Template.States {
 		}
 
 		public override void Render() {
+			base.Render();
+
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 
 			GL.BindVertexArray(vertexArrayObject);

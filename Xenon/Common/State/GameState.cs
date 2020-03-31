@@ -8,17 +8,19 @@ namespace Xenon.Common.State {
 		public ObjectManager objectManager = new ObjectManager();
 
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
-		bool disposed = false, pausedUpdate = false, pausedRender = false;
+		bool disposed = false, pausedUpdate = false, pausedRender = false, isInitialized = false;
 
-		public virtual void Load() { }
+		public virtual void Load() {
+			isInitialized = true;
+		}
 
 		public virtual void Update() {
-			if (!pausedUpdate) objectManager.Update();
+			if (!pausedUpdate && isInitialized) objectManager.Update();
 			else return;
 		}
 
 		public virtual void Render() {
-			if (!pausedUpdate) objectManager.Render();
+			if (!pausedUpdate && isInitialized) objectManager.Render();
 			else return;
 		}
 
@@ -47,6 +49,7 @@ namespace Xenon.Common.State {
 
 		protected virtual void Dispose(bool disposing) {
 			objectManager.Unload();
+			isInitialized = false;
 			if (disposed) return;
 			if (disposing) { handle.Dispose(); }
 
