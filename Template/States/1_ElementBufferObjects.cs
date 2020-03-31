@@ -66,7 +66,7 @@ namespace Template.States {
 			GL.DeleteBuffer(vertexBufferObject);
 			GL.DeleteBuffer(elementBufferObject);
 			GL.DeleteVertexArray(vertexArrayObject);
-			GL.DeleteProgram(shader.handle);
+			if (shader != null) GL.DeleteProgram(shader.handle);
 
 			base.Dispose();
 		}
