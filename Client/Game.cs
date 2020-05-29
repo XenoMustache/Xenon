@@ -32,6 +32,7 @@ namespace Xenon.Client {
 			window.SetActive(true);
 
 			Init();
+			Exit();
 		}
 
 		protected virtual void Init() {
@@ -66,5 +67,7 @@ namespace Xenon.Client {
 		protected virtual void Update(double deltaTime) { stateManager.currentState.Update(deltaTime); }
 
 		protected virtual void Render(RenderWindow window) { stateManager.currentState.Render(window); }
+
+		protected virtual void Exit() { }
 	}
 }
