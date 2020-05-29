@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32.SafeHandles;
+using SFML.Graphics;
 using System;
 using System.Runtime.InteropServices;
 using Xenon.Common.Object;
@@ -19,8 +20,8 @@ namespace Xenon.Common.State {
 			else return;
 		}
 
-		public virtual void Render() {
-			if (!pausedUpdate && isInitialized) objectManager.Render();
+		public virtual void Render(RenderWindow window) {
+			if (!pausedUpdate && isInitialized) objectManager.Render(window);
 			else return;
 		}
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32.SafeHandles;
+using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -11,7 +12,7 @@ namespace Xenon.Common.Object {
 
 		public void Update(double deltaTime) { foreach (var Object in Objects) Object.Update(deltaTime); }
 
-		public void Render() { foreach (var Object in Objects) Object.Render(); }
+		public void Render(RenderWindow window) { foreach (var Object in Objects) Object.Render(window); }
 
 		public void Unload() {
 			foreach (var Object in Objects) {

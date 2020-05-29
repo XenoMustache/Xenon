@@ -51,7 +51,7 @@ namespace Xenon.Client {
 				accumulator -= deltatime;
 			}
 
-			Render();
+			Render(window);
 
 			window.Display();
 		}
@@ -65,6 +65,6 @@ namespace Xenon.Client {
 
 		protected virtual void Update(double deltaTime) { stateManager.currentState.Update(deltaTime); }
 
-		protected virtual void Render() { stateManager.currentState.Render(); }
+		protected virtual void Render(RenderWindow window) { stateManager.currentState.Render(window); }
 	}
 }
