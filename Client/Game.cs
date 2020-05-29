@@ -34,6 +34,13 @@ namespace Xenon.Client {
 			Init();
 		}
 
+		protected virtual void Init() {
+			Clock clock = new Clock();
+			double currentTime = clock.Restart().AsSeconds();
+
+			while (window.IsOpen) Loop(clock, currentTime);
+		}
+
 		protected void Loop(Clock clock, double currentTime) {
 			double newTime = clock.ElapsedTime.AsSeconds();
 			double frameTime = newTime - currentTime;
@@ -54,13 +61,6 @@ namespace Xenon.Client {
 			Render(window);
 
 			window.Display();
-		}
-
-		protected virtual void Init() {
-			Clock clock = new Clock();
-			double currentTime = clock.Restart().AsSeconds();
-
-			while (window.IsOpen) Loop(clock, currentTime);
 		}
 
 		protected virtual void Update(double deltaTime) { stateManager.currentState.Update(deltaTime); }
