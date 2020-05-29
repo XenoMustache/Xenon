@@ -10,9 +10,9 @@ namespace Xenon.Common.Object {
 		bool disposed = false, pausedUpdate = false, pausedRender = false;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
-		public virtual void Update() {
+		public virtual void Update(double deltaTime) {
 			if (!pausedUpdate)
-				foreach (var component in components) component.Update();
+				foreach (var component in components) component.Update(deltaTime);
 			else return;
 		}
 

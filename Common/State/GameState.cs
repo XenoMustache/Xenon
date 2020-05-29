@@ -14,8 +14,8 @@ namespace Xenon.Common.State {
 			isInitialized = true;
 		}
 
-		public virtual void Update() {
-			if (!pausedUpdate && isInitialized) objectManager.Update();
+		public virtual void Update(double deltaTime) {
+			if (!pausedUpdate && isInitialized) objectManager.Update(deltaTime);
 			else return;
 		}
 
