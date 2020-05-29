@@ -9,7 +9,7 @@ namespace Xenon.Common.Object {
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 		bool disposed = false;
 
-		public void Update() { foreach (var Object in Objects) Object.Update(); }
+		public void Update(double deltaTime) { foreach (var Object in Objects) Object.Update(deltaTime); }
 
 		public void Render() { foreach (var Object in Objects) Object.Render(); }
 

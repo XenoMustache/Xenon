@@ -9,7 +9,7 @@ namespace Xenon.Common.Object {
 
 		public Componenet() { }
 
-		public abstract void Update();
+		public abstract void Update(double deltaTime);
 
 		public abstract void Render();
 
