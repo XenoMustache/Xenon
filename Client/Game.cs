@@ -5,6 +5,8 @@ using Xenon.Common.State;
 
 namespace Xenon.Client {
 	public abstract class Game {
+		public VideoMode screenSize;
+
 		protected string name;
 		protected double deltatime = 0.01, secondsPerFrame = 0.05;
 		protected uint depthBits, stencilBits, antialiasingLevel, frameLimit = 60;
@@ -14,8 +16,10 @@ namespace Xenon.Client {
 
 		double accumulator;
 
-		public Game(string name) {
+		public Game(string name, Vector2u screenSize) {
 			this.name = name;
+			this.screenSize = new VideoMode(screenSize.X, screenSize.Y);
+
 			PreInit();
 			Run();
 		}
@@ -25,7 +29,7 @@ namespace Xenon.Client {
 		protected void Run() {
 			settings = new ContextSettings(depthBits, stencilBits, antialiasingLevel);
 
-			window = new RenderWindow(new VideoMode(1280, 720), name, Styles.Default, settings);
+			window = new RenderWindow(screenSize, name, Styles.Default, settings);
 			window.Closed += (s, e) => window.Close();
 			window.Resized += (s, e) => window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
 			window.SetFramerateLimit(frameLimit);
