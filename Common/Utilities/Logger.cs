@@ -15,15 +15,16 @@ namespace Xenon.Common.Utilities {
 			logList.Add(time + message);
 		}
 
-		public static void Export() {
+		public static void Export(string directory = "logs") {
 			string[] log = logList.ToArray();
-			string destination = Directory.GetCurrentDirectory() + "\\logs\\", fileName = DateTime.Now.ToString("MM-dd-yyyy -- HH:mm") + ".log";
+			string destination = Path.Combine(Directory.GetCurrentDirectory(), directory), fileName = DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss") + ".log";
 
 			if (!Directory.Exists(destination)) Directory.CreateDirectory(destination);
-			File.WriteAllLines(destination + fileName, log);
 
-			if (File.Exists(destination + "latest.log")) File.Delete(destination + "latest.log");
-			File.WriteAllLines(destination + "latest.log", log);
+			File.WriteAllLines(destination + "\\" + fileName, log);
+
+			if (File.Exists(destination + "\\latest.log")) File.Delete(destination + "latest.log");
+			File.WriteAllLines(destination + "\\latest.log", log);
 		}
 	}
 }

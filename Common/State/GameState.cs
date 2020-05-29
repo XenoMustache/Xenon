@@ -1,11 +1,13 @@
 ﻿using Microsoft.Win32.SafeHandles;
+using SFML.Graphics;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Xenon.Common.Object;
 
 namespace Xenon.Common.State {
 	public class GameState : IDisposable {
-		public ObjectManager objectManager = new ObjectManager();
+		protected List<GameObject> Objects = new List<GameObject>();
 
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 		bool disposed = false, pausedUpdate = false, pausedRender = false, isInitialized = false;
@@ -15,12 +17,12 @@ namespace Xenon.Common.State {
 		}
 
 		public virtual void Update(double deltaTime) {
-			if (!pausedUpdate && isInitialized) objectManager.Update(deltaTime);
+			if (!pausedUpdate && isInitialized) foreach (var obj in Objects) obj.Update(deltaTime);
 			else return;
 		}
 
-		public virtual void Render() {
-			if (!pausedUpdate && isInitialized) objectManager.Render();
+		public virtual void Render(RenderWindow window) {
+			if (!pausedUpdate && isInitialized) foreach (var obj in Objects) obj.Render(window);
 			else return;
 		}
 
@@ -48,7 +50,8 @@ namespace Xenon.Common.State {
 		}
 
 		protected virtual void Dispose(bool disposing) {
-			objectManager.Unload();
+			foreach (var obj in Objects) obj.Dispose();
+
 			isInitialized = false;
 			if (disposed) return;
 			if (disposing) { handle.Dispose(); }

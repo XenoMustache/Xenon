@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32.SafeHandles;
+using SFML.Graphics;
 using System;
 using System.Runtime.InteropServices;
 
@@ -11,7 +12,7 @@ namespace Xenon.Common.Object {
 
 		public abstract void Update(double deltaTime);
 
-		public abstract void Render();
+		public abstract void Render(RenderWindow window);
 
 		public void Dispose() {
 			Dispose(true);

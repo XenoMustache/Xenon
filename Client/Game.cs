@@ -32,6 +32,14 @@ namespace Xenon.Client {
 			window.SetActive(true);
 
 			Init();
+			Exit();
+		}
+
+		protected virtual void Init() {
+			Clock clock = new Clock();
+			double currentTime = clock.Restart().AsSeconds();
+
+			while (window.IsOpen) Loop(clock, currentTime);
 		}
 
 		protected void Loop(Clock clock, double currentTime) {
@@ -51,20 +59,15 @@ namespace Xenon.Client {
 				accumulator -= deltatime;
 			}
 
-			Render();
+			Render(window);
 
 			window.Display();
 		}
 
-		protected virtual void Init() {
-			Clock clock = new Clock();
-			double currentTime = clock.Restart().AsSeconds();
-
-			while (window.IsOpen) Loop(clock, currentTime);
-		}
-
 		protected virtual void Update(double deltaTime) { stateManager.currentState.Update(deltaTime); }
 
-		protected virtual void Render() { stateManager.currentState.Render(); }
+		protected virtual void Render(RenderWindow window) { stateManager.currentState.Render(window); }
+
+		protected virtual void Exit() { }
 	}
 }

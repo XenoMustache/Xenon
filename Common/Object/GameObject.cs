@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32.SafeHandles;
+using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -6,8 +7,9 @@ using System.Runtime.InteropServices;
 namespace Xenon.Common.Object {
 	public abstract class GameObject : IDisposable {
 		protected List<Componenet> components = new List<Componenet>();
+		protected bool pausedUpdate = false, pausedRender = false;
 
-		bool disposed = false, pausedUpdate = false, pausedRender = false;
+		bool disposed;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
 		public virtual void Update(double deltaTime) {
@@ -16,9 +18,9 @@ namespace Xenon.Common.Object {
 			else return;
 		}
 
-		public virtual void Render() {
+		public virtual void Render(RenderWindow window) {
 			if (!pausedRender)
-				foreach (var component in components) component.Render();
+				foreach (var component in components) component.Render(window);
 			else return;
 		}
 
@@ -29,10 +31,10 @@ namespace Xenon.Common.Object {
 			component.Dispose();
 		}
 
-		public virtual void TogglePause(int objectEvent) {
+		public virtual void TogglePause(string objectEvent) {
 			switch (objectEvent) {
-				case 1: if (!pausedUpdate) pausedUpdate = true; else pausedUpdate = false; break;
-				case 2: if (!pausedRender) pausedRender = true; else pausedRender = false; break;
+				case "update": if (!pausedUpdate) pausedUpdate = true; else pausedUpdate = false; break;
+				case "draw": if (!pausedRender) pausedRender = true; else pausedRender = false; break;
 				default: throw new Exception("Event not recognized");
 			}
 		}
