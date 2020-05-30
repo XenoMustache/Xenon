@@ -75,7 +75,7 @@ namespace Xenon.Common.State {
 				} else {
 					var tempState = currentState;
 					tempState.ForcePause();
-					oldState.ForceUnpause();
+					oldState.ForcePause(false);
 
 					currentState = oldState;
 					oldState = tempState;

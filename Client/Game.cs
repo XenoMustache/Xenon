@@ -20,13 +20,13 @@ namespace Xenon.Client {
 			this.name = name;
 			this.screenSize = new VideoMode(screenSize.X, screenSize.Y);
 
-			PreInit();
 			Run();
 		}
 
 		protected virtual void PreInit() { }
 
 		protected void Run() {
+			PreInit();
 			settings = new ContextSettings(depthBits, stencilBits, antialiasingLevel);
 
 			window = new RenderWindow(screenSize, name, Styles.Default, settings);
