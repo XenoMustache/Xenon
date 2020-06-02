@@ -59,18 +59,23 @@ namespace Xenon.Client {
 			window.DispatchEvents();
 
 			while (accumulator >= deltatime) {
-				Update(deltatime);
+				Update();
 				accumulator -= deltatime;
 			}
 
-			Render(window);
-
+			Render();
 			window.Display();
 		}
 
-		protected virtual void Update(double deltaTime) { stateManager.currentState.Update(deltaTime); }
+		protected virtual void Update() {
+			stateManager.currentState.deltaTime = deltatime;
+			stateManager.currentState.Update();
+		}
 
-		protected virtual void Render(RenderWindow window) { stateManager.currentState.Render(window); }
+		protected virtual void Render() {
+			stateManager.currentState.window = window;
+			stateManager.currentState.Render(); 
+		}
 
 		protected virtual void Exit() { }
 	}

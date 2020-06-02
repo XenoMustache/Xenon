@@ -6,16 +6,19 @@ using System.Runtime.InteropServices;
 
 namespace Xenon.Common.Object {
 	public abstract class GameObject : IDisposable {
+		public double deltaTime;
+		public RenderWindow window;
+
 		protected List<Componenet> components = new List<Componenet>();
 
 		bool disposed;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
-		public virtual void Update(double deltaTime) {
+		public virtual void Update() {
 			foreach (var component in components) component.Update(deltaTime);
 		}
 
-		public virtual void Render(RenderWindow window) {
+		public virtual void Render() {
 			foreach (var component in components) component.Render(window);
 		}
 

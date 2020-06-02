@@ -7,26 +7,34 @@ using Xenon.Common.Object;
 
 namespace Xenon.Common.State {
 	public class GameState : IDisposable {
+		public double deltaTime;
 		public bool pausedUpdate = false, pausedRender = false;
+		public RenderWindow window;
 
 		protected List<GameObject> Objects = new List<GameObject>();
 
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 		bool disposed = false, isInitialized = false;
 
-		public virtual void Load() {
+		public virtual void Init() {
 			isInitialized = true;
 		}
 
-		public virtual void Update(double deltaTime) {
+		public virtual void Update() {
 			if (!pausedUpdate && isInitialized) {
-				foreach (var obj in Objects) obj.Update(deltaTime);
+				foreach (var obj in Objects) {
+					obj.deltaTime = deltaTime;
+					obj.Update();
+				}
 			}
 		}
 
-		public virtual void Render(RenderWindow window) {
+		public virtual void Render() {
 			if (!pausedUpdate && isInitialized) {
-				foreach (var obj in Objects) obj.Render(window);
+				foreach (var obj in Objects) {
+					obj.window = window;
+					obj.Render();
+				}
 			}
 		}
 
