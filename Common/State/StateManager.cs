@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32.SafeHandles;
+using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -8,11 +9,11 @@ namespace Xenon.Common.State {
 	public class StateManager : IDisposable {
 		public GameState currentState, oldState;
 
+		bool disposed = false;
 		Dictionary<GameState, int> States = new Dictionary<GameState, int>();
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
-		bool disposed = false;
 
-		// TODO fix persistence
+		// TODO: fix persistence
 		public void Goto(int stateId, bool persist = false, bool isDefault = false) {
 			if (!persist) {
 				if (!isDefault) {
@@ -24,7 +25,7 @@ namespace Xenon.Common.State {
 			}
 
 			currentState = MiscUtils.KeyByValue(States, stateId);
-			currentState.Load();
+			currentState.Init();
 		}
 
 		public int GetCurrentId() {
@@ -49,7 +50,7 @@ namespace Xenon.Common.State {
 			var newState = MiscUtils.KeyByValue(States, id += 1);
 
 			currentState = newState;
-			currentState.Load();
+			currentState.Init();
 		}
 
 		public void GoBack(bool persist = false) {
@@ -65,7 +66,7 @@ namespace Xenon.Common.State {
 			var newState = MiscUtils.KeyByValue(States, id -= 1);
 
 			currentState = newState;
-			currentState.Load();
+			currentState.Init();
 		}
 
 		public void Return(bool persist = false) {
@@ -75,7 +76,7 @@ namespace Xenon.Common.State {
 				} else {
 					var tempState = currentState;
 					tempState.ForcePause();
-					oldState.ForceUnpause();
+					oldState.ForcePause(false);
 
 					currentState = oldState;
 					oldState = tempState;

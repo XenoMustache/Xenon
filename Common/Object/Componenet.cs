@@ -4,6 +4,7 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Xenon.Common.Object {
+	[Obsolete("Component system is being phased out, move all component logic to parent GameObjects")]
 	public abstract class Componenet : IDisposable {
 		bool disposed = false;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
