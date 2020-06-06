@@ -12,10 +12,11 @@ namespace Xenon.Common.Object {
 		bool disposed;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
-		public virtual void Init() { }
+		public abstract void Init();
 
-		public virtual void Update() {
-		}
+		public abstract void Update();
+
+		public abstract void Render();
 
 		public void Dispose() {
 			Dispose(true);
