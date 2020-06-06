@@ -9,24 +9,12 @@ namespace Xenon.Common.Object {
 		public double deltaTime;
 		public RenderWindow window;
 
-		protected List<Componenet> components = new List<Componenet>();
-
 		bool disposed;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
+		public virtual void Init() { }
+
 		public virtual void Update() {
-			foreach (var component in components) component.Update(deltaTime);
-		}
-
-		public virtual void Render() {
-			foreach (var component in components) component.Render(window);
-		}
-
-		public virtual void AddComponent(Componenet component) { components.Add(component); }
-
-		public virtual void RemoveComponent(Componenet component) {
-			components.Remove(component);
-			component.Dispose();
 		}
 
 		public void Dispose() {
@@ -35,7 +23,6 @@ namespace Xenon.Common.Object {
 		}
 
 		protected virtual void Dispose(bool disposing) {
-			foreach (var componenet in components) componenet.Dispose();
 			if (disposed) return;
 			if (disposing) { handle.Dispose(); }
 
