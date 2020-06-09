@@ -9,10 +9,6 @@ namespace Xenon.Client {
 		/// Defines a default video mode for your game. See SFML definition for VideoMode;
 		/// </summary>
 		public VideoMode screenSettings;
-		/// <summary>
-		/// Returns true if the game screen is currently focused and false otherwise.
-		/// </summary>
-		public static bool isFocused = true;
 
 		/// <summary>
 		/// Defines the string shown on the titlebar of the game window.
@@ -84,10 +80,14 @@ namespace Xenon.Client {
 			window = new RenderWindow(screenSettings, name, Styles.Default, settings);
 			window.Closed += (s, e) => window.Close();
 			window.Resized += (s, e) => window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
-			window.GainedFocus += (s, e) => isFocused = true;
-			window.LostFocus += (s, e) => isFocused = false;
+			window.GainedFocus += (s, e) => Input.isFocused = true;
+			window.LostFocus += (s, e) => Input.isFocused = false;
+			window.KeyPressed += (s, e) => Input.lastKeyPressed = e.Code;
+			window.KeyReleased += (s, e) => Input.lastKeyReleased = e.Code;
 			window.SetFramerateLimit(frameLimit);
 			window.SetActive(true);
+
+			Input.window = window;
 
 			Init();
 			Exit();
@@ -135,6 +135,9 @@ namespace Xenon.Client {
 		protected virtual void Update() {
 			stateManager.currentState.deltaTime = deltatime;
 			stateManager.currentState.Update();
+
+			Input.lastKeyPressed = Keyboard.Key.Unknown;
+			Input.lastKeyReleased = Keyboard.Key.Unknown;
 		}
 
 		/// <summary>
