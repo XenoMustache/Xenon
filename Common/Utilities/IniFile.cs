@@ -3,7 +3,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Xenon.Common.Utilities {
-	public class Ini {
+	/// <summary>
+	/// Basic implementation of Danny Beckett's ini file read/write class.
+	/// </summary>
+	/// See https://stackoverflow.com/questions/217902/reading-writing-an-ini-file for more information on how to use.
+	public class IniFile {
 		readonly string exe = Directory.GetCurrentDirectory();
 		string path;
 
@@ -13,7 +17,7 @@ namespace Xenon.Common.Utilities {
 		[DllImport("kernel32", CharSet = CharSet.Unicode)]
 		static extern int GetPrivateProfileString(string Section, string Key, string Default, StringBuilder RetVal, int Size, string FilePath);
 
-		public Ini(string IniPath = null) { path = new FileInfo(IniPath ?? exe + ".ini").FullName.ToString(); }
+		public IniFile(string IniPath = null) { path = new FileInfo(IniPath ?? exe + ".ini").FullName.ToString(); }
 
 		public string Read(string Key, string Section = null) {
 			StringBuilder RetVal = new StringBuilder(255);
