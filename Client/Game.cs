@@ -9,7 +9,7 @@ namespace Xenon.Client {
 
 		protected string name;
 		protected double deltatime = 0.01, secondsPerFrame = 0.05;
-		protected uint depthBits, stencilBits, antialiasingLevel, frameLimit = 60;
+		protected uint depthBits, stencilBits, antialiasingLevel, frameLimit;
 		protected StateManager stateManager = new StateManager();
 		protected ContextSettings settings;
 		protected RenderWindow window;
