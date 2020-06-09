@@ -1,11 +1,13 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System;
 using Xenon.Common.State;
 
 namespace Xenon.Client {
 	public abstract class Game {
 		public VideoMode screenSize;
+		public static bool isFocused = true;
 
 		protected string name;
 		protected double deltatime = 0.01, secondsPerFrame = 0.05;
@@ -32,6 +34,8 @@ namespace Xenon.Client {
 			window = new RenderWindow(screenSize, name, Styles.Default, settings);
 			window.Closed += (s, e) => window.Close();
 			window.Resized += (s, e) => window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
+			window.GainedFocus += (s, e) => isFocused = true;
+			window.LostFocus += (s, e) => isFocused = false;
 			window.SetFramerateLimit(frameLimit);
 			window.SetActive(true);
 
@@ -74,7 +78,7 @@ namespace Xenon.Client {
 
 		protected virtual void Render() {
 			stateManager.currentState.window = window;
-			stateManager.currentState.Render(); 
+			stateManager.currentState.Render();
 		}
 
 		protected virtual void Exit() { }
