@@ -3,7 +3,6 @@ using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Xenon.Common.Object;
 
 namespace Xenon.Common.State {
 	public class GameState : IDisposable {

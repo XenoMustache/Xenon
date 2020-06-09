@@ -1,10 +1,9 @@
 ﻿using Microsoft.Win32.SafeHandles;
 using SFML.Graphics;
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace Xenon.Common.Object {
+namespace Xenon.Common {
 	public abstract class GameObject : IDisposable {
 		public double deltaTime;
 		public RenderWindow window;
