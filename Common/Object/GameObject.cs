@@ -12,8 +12,6 @@ namespace Xenon.Common.Object {
 		bool disposed;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
-		public abstract void Init();
-
 		public abstract void Update();
 
 		public abstract void Render();
@@ -23,11 +21,15 @@ namespace Xenon.Common.Object {
 			GC.SuppressFinalize(this);
 		}
 
-		protected virtual void Dispose(bool disposing) {
+		protected void Dispose(bool disposing) {
 			if (disposed) return;
-			if (disposing) { handle.Dispose(); }
+			if (disposing) OnDispose();
 
 			disposed = true;
+		}
+
+		protected virtual void OnDispose() {
+			handle.Dispose();
 		}
 	}
 }
