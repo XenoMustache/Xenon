@@ -25,6 +25,6 @@ namespace Xenon.Common.Utilities {
 		/// Returns amount of frames stored in the object.
 		/// </summary>
 		/// <returns>Unsigned Integer</returns>
-		public uint GetFPS() { return fps; }
+		public uint GetFPS() { return fps / 5; }
 	}
 }

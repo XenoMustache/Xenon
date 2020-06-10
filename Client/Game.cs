@@ -23,22 +23,6 @@ namespace Xenon.Client {
 		/// </summary>
 		protected double secondsPerFrame = 0.05;
 		/// <summary>
-		/// Controls the pixel depth of the game window, see SFML definition for VideoMode.
-		/// </summary>
-		protected uint depthBits;
-		/// <summary>
-		/// Controls the stencil bits of the game window, see SFML definition for VideoMode.
-		/// </summary>
-		protected uint stencilBits;
-		/// <summary>
-		/// Controls the antialiasing level of the game window and all drawables.
-		/// </summary>
-		protected uint antialiasingLevel; 
-		/// <summary>
-		/// Defines the amount of frames that can be rendered per second.
-		/// </summary>
-		protected uint frameLimit;
-		/// <summary>
 		/// Manages GameStates of the game, can be used to move to and from other states.
 		/// </summary>
 		protected StateManager stateManager = new StateManager();
@@ -75,7 +59,7 @@ namespace Xenon.Client {
 		/// </summary>
 		protected void Run() {
 			PreInit();
-			settings = new ContextSettings(depthBits, stencilBits, antialiasingLevel);
+			settings = new ContextSettings();
 
 			window = new RenderWindow(screenSettings, name, Styles.Default, settings);
 			window.Closed += (s, e) => window.Close();
@@ -84,7 +68,6 @@ namespace Xenon.Client {
 			window.LostFocus += (s, e) => Input.isFocused = false;
 			window.KeyPressed += (s, e) => Input.lastKeyPressed = e.Code;
 			window.KeyReleased += (s, e) => Input.lastKeyReleased = e.Code;
-			window.SetFramerateLimit(frameLimit);
 			window.SetActive(true);
 
 			Input.window = window;
