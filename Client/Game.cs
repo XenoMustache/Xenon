@@ -68,6 +68,7 @@ namespace Xenon.Client {
 			window.LostFocus += (s, e) => Input.isFocused = false;
 			window.KeyPressed += (s, e) => Input.lastKeyPressed = e.Code;
 			window.KeyReleased += (s, e) => Input.lastKeyReleased = e.Code;
+			window.SetKeyRepeatEnabled(false);
 			window.SetActive(true);
 
 			Input.window = window;

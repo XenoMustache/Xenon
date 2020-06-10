@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using System;
 
 namespace Xenon.Client {
 	public static class Input {
@@ -25,7 +26,7 @@ namespace Xenon.Client {
 		/// <param name="key"></param>
 		/// <returns></returns>
 		public static int GetKeyDown(Keyboard.Key key) {
-			if (lastKeyPressed == key && isFocused) return 1; else return 0;
+			if (lastKeyPressed == key && isFocused) return Keyboard.IsKeyPressed(key) ? 1 : 0; else return 0;
 		}
 
 		/// <summary>
@@ -45,7 +46,7 @@ namespace Xenon.Client {
 		/// <param name="isBool"></param>
 		/// <returns></returns>
 		public static bool GetKeyDown(Keyboard.Key key, bool isBool) {
-			if (lastKeyPressed == key && isFocused) return true; else return false;
+			if (lastKeyPressed == key && isFocused) return Keyboard.IsKeyPressed(key); else return false;
 		}
 	}
 }
