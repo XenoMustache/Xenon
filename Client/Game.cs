@@ -12,6 +12,7 @@ namespace Xenon.Client {
 		protected string name;
 		protected double deltatime = 0.01, secondsPerFrame = 0.05;
 		protected uint depthBits, stencilBits, antialiasingLevel, frameLimit;
+		protected bool exportLog = true;
 		protected StateManager stateManager = new StateManager();
 		protected ContextSettings settings;
 		protected RenderWindow window;
@@ -84,6 +85,6 @@ namespace Xenon.Client {
 			stateManager.currentState.Render();
 		}
 
-		protected virtual void Exit() { }
+		protected virtual void Exit() { if (exportLog) Logger.Export(); }
 	}
 }
