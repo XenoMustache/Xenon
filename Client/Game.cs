@@ -3,6 +3,7 @@ using SFML.System;
 using SFML.Window;
 using Xenon.Common.State;
 using Xenon.Common.Utilities;
+using OpenTK.Graphics.OpenGL;
 
 
 namespace Xenon.Client {
@@ -34,12 +35,19 @@ namespace Xenon.Client {
 
 #if OPEN_GL
 			var gameWindow = new OpenTK.GameWindow();
-			Logger.Print("OpenGL has been enabled. This feature is heavily expiremental and might break things.");
+#warning OpenGL extensions have been enabled. This feature is heavily expiremental and might break things.
 #endif
 
 			window = new RenderWindow(screenSize, name, Styles.Default, settings);
 			window.Closed += (s, e) => window.Close();
-			window.Resized += (s, e) => window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
+
+			window.Resized += (s, e) => {
+				window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
+#if OPEN_GL
+				GL.Viewport(0, 0, (int)e.Width, (int)e.Height);
+#endif
+			};
+
 			window.SetFramerateLimit(frameLimit);
 			window.SetActive(true);
 
@@ -48,6 +56,10 @@ namespace Xenon.Client {
 		}
 
 		protected virtual void Init() {
+#if OPEN_GL
+			Logger.Print("OpenGL extensions have been enabled.");
+#endif
+
 			Clock clock = new Clock();
 			double currentTime = clock.Restart().AsSeconds();
 
@@ -63,8 +75,12 @@ namespace Xenon.Client {
 
 			accumulator += frameTime;
 
-			window.Clear(Color.Black);
 			window.DispatchEvents();
+#if OPEN_GL
+			GL.Clear(ClearBufferMask.DepthBufferBit);
+#else
+			window.Clear(Color.Black);
+#endif
 
 			while (accumulator >= deltatime) {
 				Update();
@@ -76,13 +92,17 @@ namespace Xenon.Client {
 		}
 
 		protected virtual void Update() {
-			stateManager.currentState.deltaTime = deltatime;
-			stateManager.currentState.Update();
+			if (stateManager.currentState != null) {
+				stateManager.currentState.deltaTime = deltatime;
+				stateManager.currentState.Update();
+			}
 		}
 
 		protected virtual void Render() {
-			stateManager.currentState.window = window;
-			stateManager.currentState.Render();
+			if (stateManager.currentState != null) {
+				stateManager.currentState.window = window;
+				stateManager.currentState.Render();
+			}
 		}
 
 		protected virtual void Exit() { if (exportLog) Logger.Export(); }
