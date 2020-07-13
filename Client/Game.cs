@@ -2,6 +2,8 @@
 using SFML.System;
 using SFML.Window;
 using Xenon.Common.State;
+using Xenon.Common.Utilities;
+
 
 namespace Xenon.Client {
 	public abstract class Game {
@@ -28,6 +30,11 @@ namespace Xenon.Client {
 		protected void Run() {
 			PreInit();
 			settings = new ContextSettings(depthBits, stencilBits, antialiasingLevel);
+
+#if OPEN_GL
+			var gameWindow = new OpenTK.GameWindow();
+			Logger.Print("OpenGL has been enabled. This feature is heavily expiremental and might break things.");
+#endif
 
 			window = new RenderWindow(screenSize, name, Styles.Default, settings);
 			window.Closed += (s, e) => window.Close();
@@ -74,7 +81,7 @@ namespace Xenon.Client {
 
 		protected virtual void Render() {
 			stateManager.currentState.window = window;
-			stateManager.currentState.Render(); 
+			stateManager.currentState.Render();
 		}
 
 		protected virtual void Exit() { }
