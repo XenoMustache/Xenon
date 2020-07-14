@@ -4,7 +4,7 @@ using SFML.Window;
 using Xenon.Common.State;
 using Xenon.Common.Utilities;
 using OpenTK.Graphics.OpenGL;
-
+using OpenTK.Graphics;
 
 namespace Xenon.Client {
 	public abstract class Game {
@@ -17,6 +17,8 @@ namespace Xenon.Client {
 		protected StateManager stateManager = new StateManager();
 		protected ContextSettings settings;
 		protected RenderWindow window;
+
+		protected IGraphicsContext glCtx;
 
 		double accumulator;
 
@@ -35,6 +37,7 @@ namespace Xenon.Client {
 
 #if OPEN_GL
 			var gameWindow = new OpenTK.GameWindow();
+			glCtx = gameWindow.Context;
 #warning OpenGL extensions have been enabled. This feature is heavily expiremental and might break things.
 #endif
 
@@ -56,10 +59,6 @@ namespace Xenon.Client {
 		}
 
 		protected virtual void Init() {
-#if OPEN_GL
-			Logger.Print("OpenGL extensions have been enabled.");
-#endif
-
 			Clock clock = new Clock();
 			double currentTime = clock.Restart().AsSeconds();
 
@@ -76,11 +75,6 @@ namespace Xenon.Client {
 			accumulator += frameTime;
 
 			window.DispatchEvents();
-#if OPEN_GL
-			GL.Clear(ClearBufferMask.DepthBufferBit);
-#else
-			window.Clear(Color.Black);
-#endif
 
 			while (accumulator >= deltatime) {
 				Update();
@@ -103,6 +97,13 @@ namespace Xenon.Client {
 				stateManager.currentState.window = window;
 				stateManager.currentState.Render();
 			}
+
+#if OPEN_GL
+			GL.Clear(ClearBufferMask.DepthBufferBit);
+			glCtx.SwapBuffers();
+#else
+			window.Clear(Color.Black);
+#endif
 		}
 
 		protected virtual void Exit() { if (exportLog) Logger.Export(); }
