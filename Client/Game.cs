@@ -1,10 +1,13 @@
-﻿using SFML.Graphics;
+﻿#define OPEN_GL
+
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using Xenon.Common.State;
 using Xenon.Common.Utilities;
-using OpenTK.Graphics.OpenGL;
 using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL4;
+using System;
 
 namespace Xenon.Client {
 	public abstract class Game {
@@ -35,10 +38,12 @@ namespace Xenon.Client {
 			PreInit();
 			settings = new ContextSettings(depthBits, stencilBits, antialiasingLevel);
 
-#if OPEN_GL
+#if (OPEN_GL)
 			var gameWindow = new OpenTK.GameWindow();
 			glCtx = gameWindow.Context;
-#warning OpenGL extensions have been enabled. This feature is heavily expiremental and might break things.
+			gameWindow.Load += (s,e) => GLInit();
+			gameWindow.RenderFrame += (s, e) => GLRender();
+			Console.WriteLine("OpenGL enabled");
 #endif
 
 			window = new RenderWindow(screenSize, name, Styles.Default, settings);
@@ -46,7 +51,7 @@ namespace Xenon.Client {
 
 			window.Resized += (s, e) => {
 				window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
-#if OPEN_GL
+#if (OPEN_GL)
 				GL.Viewport(0, 0, (int)e.Width, (int)e.Height);
 #endif
 			};
@@ -98,14 +103,17 @@ namespace Xenon.Client {
 				stateManager.currentState.Render();
 			}
 
-#if OPEN_GL
-			GL.Clear(ClearBufferMask.DepthBufferBit);
-			glCtx.SwapBuffers();
+#if (OPEN_GL)
+			
 #else
 			window.Clear(Color.Black);
 #endif
 		}
 
 		protected virtual void Exit() { if (exportLog) Logger.Export(); }
+
+		protected virtual void GLInit() { }
+
+		protected virtual void GLRender() { }
 	}
 }
