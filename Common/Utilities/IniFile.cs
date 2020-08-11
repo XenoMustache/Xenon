@@ -3,10 +3,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Xenon.Common.Utilities {
-	/// <summary>
-	/// Basic implementation of Danny Beckett's ini file read/write class.
-	/// </summary>
-	/// See https://stackoverflow.com/questions/217902/reading-writing-an-ini-file for more information on how to use.
 	public class IniFile {
 		readonly string exe = Directory.GetCurrentDirectory();
 		string path;

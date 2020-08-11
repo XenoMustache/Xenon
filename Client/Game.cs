@@ -3,6 +3,8 @@ using SFML.System;
 using SFML.Window;
 using Xenon.Common.State;
 
+using static Xenon.Common.Utilities.Logger;
+
 namespace Xenon.Client {
 	public abstract class Game {
 		/// <summary>
@@ -59,9 +61,10 @@ namespace Xenon.Client {
 		/// </summary>
 		protected void Run() {
 			PreInit();
-			settings = new ContextSettings();
 
 			window = new RenderWindow(screenSettings, name, Styles.Default, settings);
+			Print("Main window initialized");
+
 			window.Closed += (s, e) => window.Close();
 			window.Resized += (s, e) => window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
 			window.GainedFocus += (s, e) => Input.isFocused = true;
@@ -70,8 +73,10 @@ namespace Xenon.Client {
 			window.KeyReleased += (s, e) => Input.lastKeyReleased = e.Code;
 			window.SetKeyRepeatEnabled(false);
 			window.SetActive(true);
+			Print("Primary event handlers initialized");
 
 			Input.window = window;
+			Print("Input handler initialized");
 
 			Init();
 			Exit();
@@ -81,6 +86,7 @@ namespace Xenon.Client {
 		/// Called as the game is initialized and starts the primary loop.
 		/// </summary>
 		protected virtual void Init() {
+			Print("Initializing primary loop...");
 			Clock clock = new Clock();
 			double currentTime = clock.Restart().AsSeconds();
 
@@ -135,6 +141,8 @@ namespace Xenon.Client {
 		/// <summary>
 		/// Called when the game exits, can be used to dispose of any data and gracefully exit/
 		/// </summary>
-		protected virtual void Exit() { }
+		protected virtual void Exit() {
+			Print("Primary loop terminated gracefully");
+		}
 	}
 }
