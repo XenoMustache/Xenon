@@ -37,7 +37,7 @@ namespace Xenon.Client {
 		/// </summary>
 		protected RenderWindow window;
 
-		double accumulator;
+		double accumulator, ct;
 
 		/// <summary>
 		/// Game constructor. Used to initialize the game into memory.
@@ -88,9 +88,9 @@ namespace Xenon.Client {
 		protected virtual void Init() {
 			Print("Initializing primary loop...");
 			Clock clock = new Clock();
-			double currentTime = clock.Restart().AsSeconds();
+			ct = clock.Restart().AsSeconds();
 
-			while (window.IsOpen) Loop(clock, currentTime);
+			while (window.IsOpen) Loop(clock);
 		}
 
 		/// <summary>
@@ -98,12 +98,12 @@ namespace Xenon.Client {
 		/// </summary>
 		/// <param name="clock"></param>
 		/// <param name="currentTime"></param>
-		protected void Loop(Clock clock, double currentTime) {
+		protected void Loop(Clock clock) {
 			double newTime = clock.ElapsedTime.AsSeconds();
-			double frameTime = newTime - currentTime;
+			double frameTime = newTime - ct;
 
 			if (frameTime > secondsPerFrame) frameTime = secondsPerFrame;
-			currentTime = newTime;
+			ct = newTime;
 
 			accumulator += frameTime;
 
