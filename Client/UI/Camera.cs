@@ -4,6 +4,7 @@ using Xenon.Common;
 
 namespace Xenon.Client.UI {
 	public class Camera : GameObject {
+		public float camZoom;
 		public Vector2f target, uiViewSize;
 
 		View camView, uiView;
@@ -23,6 +24,7 @@ namespace Xenon.Client.UI {
 
 			window.SetView(camView);
 			camView.Size = (Vector2f)window.Size;
+			camView.Zoom(camZoom);
 		}
 	}
 }

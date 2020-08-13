@@ -24,6 +24,9 @@ namespace Xenon.Client {
 		/// Defines how much time will pass between update calls, can be used to control the speed of your game.
 		/// </summary>
 		protected double secondsPerFrame = 0.05;
+
+		protected bool fullscreenMode = false;
+
 		/// <summary>
 		/// Manages GameStates of the game, can be used to move to and from other states.
 		/// </summary>
@@ -62,7 +65,10 @@ namespace Xenon.Client {
 		protected void Run() {
 			PreInit();
 
-			window = new RenderWindow(screenSettings, name, Styles.Default, settings);
+			if (!fullscreenMode)
+				window = new RenderWindow(screenSettings, name, Styles.Default, settings);
+			else
+				window = new RenderWindow(screenSettings, name, Styles.Fullscreen, settings);
 			Print("Main window initialized");
 
 			window.Closed += (s, e) => window.Close();
