@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32.SafeHandles;
+using Newtonsoft.Json;
 using SFML.Graphics;
 using System;
 using System.Runtime.InteropServices;
@@ -8,10 +9,12 @@ namespace Xenon.Common {
 		/// <summary>
 		/// Represents the time between update calls, generally used for FPS independent math.
 		/// </summary>
+		[JsonIgnore]
 		public double deltaTime;
 		/// <summary>
 		/// Represents the game window, see SFML definition for RenderWindow.
 		/// </summary>
+		[JsonIgnore]
 		public RenderWindow window;
 
 		bool disposed;

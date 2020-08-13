@@ -13,7 +13,7 @@ namespace Xenon.Common.Utilities {
 		/// <param name="showTimestamp"></param>
 		public static void Print(string message, bool showTimestamp = true) {
 			string time;
-			if (showTimestamp) time = DateTime.Now.ToString("[HH:mm:ss]") + " ";
+			if (showTimestamp) time = DateTime.Now.ToString("[HH:mm:ss] ");
 			else time = null;
 
 			Console.WriteLine(time + message);
