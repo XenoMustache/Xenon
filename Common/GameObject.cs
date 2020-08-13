@@ -6,29 +6,18 @@ using System.Runtime.InteropServices;
 
 namespace Xenon.Common {
 	public abstract class GameObject : IDisposable {
-		/// <summary>
-		/// Represents the time between update calls, generally used for FPS independent math.
-		/// </summary>
-		[JsonIgnore]
-		public double deltaTime;
-		/// <summary>
-		/// Represents the game window, see SFML definition for RenderWindow.
-		/// </summary>
-		[JsonIgnore]
-		public RenderWindow window;
-
 		bool disposed;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
 		/// <summary>
 		/// Called within the game loop, used to control the logic of the object.
 		/// </summary>
-		public abstract void Update();
+		public abstract void Update(double deltaTime);
 
 		/// <summary>
 		/// Called outside of the game loop, used to control what is rendered onto the game window.
 		/// </summary>
-		public abstract void Render();
+		public abstract void Render(RenderWindow window);
 
 		public void Dispose() {
 			Dispose(true);

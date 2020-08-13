@@ -14,11 +14,11 @@ namespace Xenon.Client.UI {
 			uiView = new View();
 		}
 
-		public override void Update() {
-			camView.Center = target;
+		public override void Update(double deltaTime) {
+			camView.Center = new Vector2f(target.X, target.Y);
 		}
 
-		public override void Render() {
+		public override void Render(RenderWindow window) {
 			window.SetView(uiView);
 			uiView.Size = uiViewSize;
 

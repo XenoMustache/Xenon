@@ -129,8 +129,7 @@ namespace Xenon.Client {
 		/// Called within the game loop, used to control state and object logic.
 		/// </summary>
 		protected virtual void Update() {
-			stateManager.currentState.deltaTime = deltatime;
-			stateManager.currentState.Update();
+			stateManager.currentState.Update(deltatime);
 
 			Input.lastKeyPressed = Keyboard.Key.Unknown;
 			Input.lastKeyReleased = Keyboard.Key.Unknown;
@@ -141,7 +140,7 @@ namespace Xenon.Client {
 		/// </summary>
 		protected virtual void Render() {
 			stateManager.currentState.window = window;
-			stateManager.currentState.Render();
+			stateManager.currentState.Render(window);
 		}
 
 		/// <summary>
