@@ -1,7 +1,8 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using Xenon.Common.State;
+
+using static Xenon.Common.Utilities.Logger;
 
 namespace Xenon.Client {
 	public abstract class Game {
@@ -22,10 +23,9 @@ namespace Xenon.Client {
 		/// Defines how much time will pass between update calls, can be used to control the speed of your game.
 		/// </summary>
 		protected double secondsPerFrame = 0.05;
-		/// <summary>
-		/// Manages GameStates of the game, can be used to move to and from other states.
-		/// </summary>
-		protected StateManager stateManager = new StateManager();
+		
+		protected bool fullscreenMode = false;
+
 		/// <summary>
 		/// Defines settings related to the game window, see SFML definiton for ContextSettings.
 		/// </summary>
@@ -35,7 +35,7 @@ namespace Xenon.Client {
 		/// </summary>
 		protected RenderWindow window;
 
-		double accumulator;
+		double accumulator, ct;
 
 		/// <summary>
 		/// Game constructor. Used to initialize the game into memory.
@@ -59,19 +59,23 @@ namespace Xenon.Client {
 		/// </summary>
 		protected void Run() {
 			PreInit();
-			settings = new ContextSettings();
 
-			window = new RenderWindow(screenSettings, name, Styles.Default, settings);
+			if (!fullscreenMode)
+				window = new RenderWindow(screenSettings, name, Styles.Default, settings);
+			else
+				window = new RenderWindow(screenSettings, name, Styles.Fullscreen, settings);
+			Print("Main window initialized", true, "[SYS] ");
+
 			window.Closed += (s, e) => window.Close();
 			window.Resized += (s, e) => window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
 			window.GainedFocus += (s, e) => Input.isFocused = true;
 			window.LostFocus += (s, e) => Input.isFocused = false;
-			window.KeyPressed += (s, e) => Input.lastKeyPressed = e.Code;
-			window.KeyReleased += (s, e) => Input.lastKeyReleased = e.Code;
 			window.SetKeyRepeatEnabled(false);
 			window.SetActive(true);
+			Print("Primary event handlers initialized", true, "[SYS] ");
 
 			Input.window = window;
+			Print("Input handler initialized", true, "[SYS] ");
 
 			Init();
 			Exit();
@@ -81,10 +85,11 @@ namespace Xenon.Client {
 		/// Called as the game is initialized and starts the primary loop.
 		/// </summary>
 		protected virtual void Init() {
+			Print("Initializing primary loop...", true, "[SYS] ");
 			Clock clock = new Clock();
-			double currentTime = clock.Restart().AsSeconds();
+			ct = clock.Restart().AsSeconds();
 
-			while (window.IsOpen) Loop(clock, currentTime);
+			while (window.IsOpen) Loop(clock);
 		}
 
 		/// <summary>
@@ -92,12 +97,12 @@ namespace Xenon.Client {
 		/// </summary>
 		/// <param name="clock"></param>
 		/// <param name="currentTime"></param>
-		protected void Loop(Clock clock, double currentTime) {
+		protected void Loop(Clock clock) {
 			double newTime = clock.ElapsedTime.AsSeconds();
-			double frameTime = newTime - currentTime;
+			double frameTime = newTime - ct;
 
 			if (frameTime > secondsPerFrame) frameTime = secondsPerFrame;
-			currentTime = newTime;
+			ct = newTime;
 
 			accumulator += frameTime;
 
@@ -117,24 +122,22 @@ namespace Xenon.Client {
 		/// Called within the game loop, used to control state and object logic.
 		/// </summary>
 		protected virtual void Update() {
-			stateManager.currentState.deltaTime = deltatime;
-			stateManager.currentState.Update();
-
-			Input.lastKeyPressed = Keyboard.Key.Unknown;
-			Input.lastKeyReleased = Keyboard.Key.Unknown;
+			//stateManager.currentState.Update(deltatime);
 		}
 
 		/// <summary>
 		/// Called outside of the game loop, used to control what is drawn onto the game window.
 		/// </summary>
 		protected virtual void Render() {
-			stateManager.currentState.window = window;
-			stateManager.currentState.Render();
+			//stateManager.currentState.window = window;
+			//stateManager.currentState.Render(window);
 		}
 
 		/// <summary>
 		/// Called when the game exits, can be used to dispose of any data and gracefully exit/
 		/// </summary>
-		protected virtual void Exit() { }
+		protected virtual void Exit() {
+			Print("Primary loop terminated gracefully", true, "[SYS] ");
+		}
 	}
 }

@@ -11,13 +11,13 @@ namespace Xenon.Common.Utilities {
 		/// </summary>
 		/// <param name="message"></param>
 		/// <param name="showTimestamp"></param>
-		public static void Print(string message, bool showTimestamp = true) {
+		public static void Print(string message, bool showTimestamp = true, string signature = null) {
 			string time;
-			if (showTimestamp) time = DateTime.Now.ToString("HH:mm:ss") + ": ";
+			if (showTimestamp) time = DateTime.Now.ToString($"[HH:mm:ss] ");
 			else time = null;
 
-			Console.WriteLine(time + message);
-			logList.Add(time + message);
+			Console.WriteLine(time + signature + message);
+			logList.Add(time + signature + message);
 		}
 
 		/// <summary>
@@ -26,7 +26,7 @@ namespace Xenon.Common.Utilities {
 		/// <param name="directory"></param>
 		public static void Export(string directory = "logs") {
 			string[] log = logList.ToArray();
-			string destination = Path.Combine(Directory.GetCurrentDirectory(), directory), fileName = DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss") + ".log";
+			string destination = Path.Combine(Directory.GetCurrentDirectory(), directory), fileName = DateTime.Now.ToString("MM.dd.yyyy-HH.mm.ss") + ".log";
 
 			if (!Directory.Exists(destination)) Directory.CreateDirectory(destination);
 

@@ -6,9 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Xenon.Common.State {
 	public class GameState : IDisposable {
-		public double deltaTime;
 		public bool pausedUpdate = false, pausedRender = false;
-		public RenderWindow window;
 
 		protected List<GameObject> Objects = new List<GameObject>();
 
@@ -19,20 +17,18 @@ namespace Xenon.Common.State {
 			isInitialized = true;
 		}
 
-		public virtual void Update() {
+		public virtual void Update(double deltaTime) {
 			if (!pausedUpdate && isInitialized) {
 				foreach (var obj in Objects) {
-					obj.deltaTime = deltaTime;
-					obj.Update();
+					obj.Update(deltaTime);
 				}
 			}
 		}
 
-		public virtual void Render() {
+		public virtual void Render(RenderWindow window) {
 			if (!pausedUpdate && isInitialized) {
 				foreach (var obj in Objects) {
-					obj.window = window;
-					obj.Render();
+					obj.Render(window);
 				}
 			}
 		}
