@@ -6,9 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Xenon.Common.State {
 	public class GameState : IDisposable {
-		public double deltaTime;
 		public bool pausedUpdate = false, pausedRender = false;
-		public RenderWindow window;
 
 		protected List<GameObject> Objects = new List<GameObject>();
 

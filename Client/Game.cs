@@ -1,7 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using Xenon.Common.State;
 
 using static Xenon.Common.Utilities.Logger;
 
@@ -24,13 +23,9 @@ namespace Xenon.Client {
 		/// Defines how much time will pass between update calls, can be used to control the speed of your game.
 		/// </summary>
 		protected double secondsPerFrame = 0.05;
-
+		
 		protected bool fullscreenMode = false;
 
-		/// <summary>
-		/// Manages GameStates of the game, can be used to move to and from other states.
-		/// </summary>
-		protected StateManager stateManager = new StateManager();
 		/// <summary>
 		/// Defines settings related to the game window, see SFML definiton for ContextSettings.
 		/// </summary>
@@ -75,8 +70,6 @@ namespace Xenon.Client {
 			window.Resized += (s, e) => window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
 			window.GainedFocus += (s, e) => Input.isFocused = true;
 			window.LostFocus += (s, e) => Input.isFocused = false;
-			window.KeyPressed += (s, e) => Input.lastKeyPressed = e.Code;
-			window.KeyReleased += (s, e) => Input.lastKeyReleased = e.Code;
 			window.SetKeyRepeatEnabled(false);
 			window.SetActive(true);
 			Print("Primary event handlers initialized", true, "[SYS] ");
@@ -129,18 +122,15 @@ namespace Xenon.Client {
 		/// Called within the game loop, used to control state and object logic.
 		/// </summary>
 		protected virtual void Update() {
-			stateManager.currentState.Update(deltatime);
-
-			Input.lastKeyPressed = Keyboard.Key.Unknown;
-			Input.lastKeyReleased = Keyboard.Key.Unknown;
+			//stateManager.currentState.Update(deltatime);
 		}
 
 		/// <summary>
 		/// Called outside of the game loop, used to control what is drawn onto the game window.
 		/// </summary>
 		protected virtual void Render() {
-			stateManager.currentState.window = window;
-			stateManager.currentState.Render(window);
+			//stateManager.currentState.window = window;
+			//stateManager.currentState.Render(window);
 		}
 
 		/// <summary>
