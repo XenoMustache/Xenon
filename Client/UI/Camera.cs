@@ -7,12 +7,7 @@ namespace Xenon.Client.UI {
 		public float camZoom;
 		public Vector2f target, uiViewSize;
 
-		View camView, uiView;
-
-		public Camera() {
-			camView = new View();
-			uiView = new View();
-		}
+		View camView = new View(), uiView = new View();
 
 		public override void Update(double deltaTime) {
 			camView.Center = new Vector2f(target.X, target.Y);

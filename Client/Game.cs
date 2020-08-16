@@ -69,7 +69,7 @@ namespace Xenon.Client {
 				window = new RenderWindow(screenSettings, name, Styles.Default, settings);
 			else
 				window = new RenderWindow(screenSettings, name, Styles.Fullscreen, settings);
-			Print("Main window initialized");
+			Print("Main window initialized", true, "[SYS] ");
 
 			window.Closed += (s, e) => window.Close();
 			window.Resized += (s, e) => window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
@@ -79,10 +79,10 @@ namespace Xenon.Client {
 			window.KeyReleased += (s, e) => Input.lastKeyReleased = e.Code;
 			window.SetKeyRepeatEnabled(false);
 			window.SetActive(true);
-			Print("Primary event handlers initialized");
+			Print("Primary event handlers initialized", true, "[SYS] ");
 
 			Input.window = window;
-			Print("Input handler initialized");
+			Print("Input handler initialized", true, "[SYS] ");
 
 			Init();
 			Exit();
@@ -92,7 +92,7 @@ namespace Xenon.Client {
 		/// Called as the game is initialized and starts the primary loop.
 		/// </summary>
 		protected virtual void Init() {
-			Print("Initializing primary loop...");
+			Print("Initializing primary loop...", true, "[SYS] ");
 			Clock clock = new Clock();
 			ct = clock.Restart().AsSeconds();
 
@@ -147,7 +147,7 @@ namespace Xenon.Client {
 		/// Called when the game exits, can be used to dispose of any data and gracefully exit/
 		/// </summary>
 		protected virtual void Exit() {
-			Print("Primary loop terminated gracefully");
+			Print("Primary loop terminated gracefully", true, "[SYS] ");
 		}
 	}
 }
