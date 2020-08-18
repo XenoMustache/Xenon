@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Xenon.Common {
 	public abstract class GameObject : IDisposable {
-		bool disposed;
+		public bool disposed;
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
 		/// <summary>
