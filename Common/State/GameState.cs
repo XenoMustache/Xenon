@@ -13,22 +13,20 @@ namespace Xenon.Common.State {
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 		bool disposed = false, isInitialized = false;
 
-		public virtual void Init() {
-			isInitialized = true;
-		}
+		public GameState(RenderWindow window) { isInitialized = true; }
 
 		public virtual void Update(double deltaTime) {
 			if (!pausedUpdate && isInitialized) {
-				foreach (var obj in Objects) {
-					obj.Update(deltaTime);
+				for (var i = 0; i < Objects.Count; i++) {
+					if (!Objects[i].disposed) Objects[i].Update(deltaTime);
 				}
 			}
 		}
 
 		public virtual void Render(RenderWindow window) {
 			if (!pausedUpdate && isInitialized) {
-				foreach (var obj in Objects) {
-					obj.Render(window);
+				for (var i = 0; i < Objects.Count; i++) {
+					if (!Objects[i].disposed) Objects[i].Render(window);
 				}
 			}
 		}

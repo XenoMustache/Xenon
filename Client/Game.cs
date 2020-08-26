@@ -70,7 +70,7 @@ namespace Xenon.Client {
 			window.Resized += (s, e) => window.SetView(new View(new FloatRect(0, 0, e.Width, e.Height)));
 			window.GainedFocus += (s, e) => Input.isFocused = true;
 			window.LostFocus += (s, e) => Input.isFocused = false;
-			window.SetKeyRepeatEnabled(false);
+			//window.SetKeyRepeatEnabled(false);
 			window.SetActive(true);
 			Print("Primary event handlers initialized", true, "[SYS] ");
 

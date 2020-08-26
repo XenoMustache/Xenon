@@ -25,7 +25,6 @@ namespace Xenon.Common.State {
 			}
 
 			currentState = MiscUtils.KeyByValue(States, stateId);
-			currentState.Init();
 		}
 
 		public int GetCurrentId() {
@@ -50,7 +49,6 @@ namespace Xenon.Common.State {
 			var newState = MiscUtils.KeyByValue(States, id += 1);
 
 			currentState = newState;
-			currentState.Init();
 		}
 
 		public void GoBack(bool persist = false) {
@@ -66,7 +64,6 @@ namespace Xenon.Common.State {
 			var newState = MiscUtils.KeyByValue(States, id -= 1);
 
 			currentState = newState;
-			currentState.Init();
 		}
 
 		public void Return(bool persist = false) {
