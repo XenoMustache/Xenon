@@ -51,7 +51,7 @@ namespace Xenon.Common.Utilities {
 			return key;
 		}
 
-		public static float GetDistance(Vector2f target1, Vector2f target2) {
+		public static float GetDistance(this Vector2f target1, Vector2f target2) {
 			return (float)Math.Abs(Math.Sqrt(((target1.X - target2.X) * (target1.X - target2.X)) + ((target1.Y - target2.Y) * (target1.Y - target2.Y))));
 		}
 
