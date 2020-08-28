@@ -55,6 +55,7 @@ namespace Xenon.Common.Utilities {
 			return (float)Math.Abs(Math.Sqrt(((target1.X - target2.X) * (target1.X - target2.X)) + ((target1.Y - target2.Y) * (target1.Y - target2.Y))));
 		}
 
+		// TODO: Change to extension (game refactoring required)
 		public static float DegToRad(float input) {
 			return input * (float)Math.PI / 180;
 		}
