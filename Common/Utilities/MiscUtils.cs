@@ -69,13 +69,16 @@ namespace Xenon.Common.Utilities {
 		}
 
 		public static int FindTurnSideDeg(this float input, float target) {
-			var diff = input - target;
+			var diff = Math.Floor(input - target);
+
 			if (diff < 0) diff += 360;
 
-			if (diff > 180) 
-				return -1;
-			else 
+			if (diff < 180)
 				return 1;
+			if (diff > 180)
+				return -1;
+			else
+				return 0;
 		}
 	}
 }
