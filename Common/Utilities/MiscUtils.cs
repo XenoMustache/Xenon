@@ -2,6 +2,7 @@
 using SFML.System;
 using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 
 namespace Xenon.Common.Utilities {
@@ -55,9 +56,16 @@ namespace Xenon.Common.Utilities {
 			return (float)Math.Abs(Math.Sqrt(((target1.X - target2.X) * (target1.X - target2.X)) + ((target1.Y - target2.Y) * (target1.Y - target2.Y))));
 		}
 
-		// TODO: Change to extension (game refactoring required)
-		public static float DegToRad(float input) {
+		public static float DegToRad(this float input) {
 			return input * (float)Math.PI / 180;
+		}
+
+		public static float RadToDeg(this float input) {
+			return input * 180 / (float)Math.PI;
+		}
+
+		public static float GetDirection(this Vector2f target1, Vector2f target2) {
+			return (float)Math.Atan2(target2.Y - target1.Y, target2.X - target1.X);
 		}
 	}
 }
