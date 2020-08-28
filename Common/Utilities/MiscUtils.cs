@@ -67,5 +67,15 @@ namespace Xenon.Common.Utilities {
 		public static float GetDirection(this Vector2f target1, Vector2f target2) {
 			return (float)Math.Atan2(target2.Y - target1.Y, target2.X - target1.X);
 		}
+
+		public static int FindTurnSideDeg(this float input, float target) {
+			var diff = input - target;
+			if (diff < 0) diff += 360;
+
+			if (diff > 180) 
+				return -1;
+			else 
+				return 1;
+		}
 	}
 }
