@@ -2,7 +2,9 @@
 using SFML.System;
 using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 
 namespace Xenon.Common.Utilities {
 	/// <summary>
@@ -51,12 +53,36 @@ namespace Xenon.Common.Utilities {
 			return key;
 		}
 
-		public static float GetDistance(Vector2f target1, Vector2f target2) {
-			return (float)Math.Abs(Math.Sqrt(((target1.X - target2.X) * (target1.X - target2.X)) + ((target1.Y - target2.Y) * (target1.Y - target2.Y))));
+		public static float GetDistance(this Vector2f target1, Vector2f target2) {
+			return (float)Math.Sqrt((target2.X - target1.X) * (target2.X - target1.X) + (target2.Y - target1.Y) * (target2.Y - target1.Y));
 		}
 
-		public static float DegToRad(float input) {
+		public static float DegToRad(this float input) {
 			return input * (float)Math.PI / 180;
+		}
+
+		public static float RadToDeg(this float input) {
+			return input * 180 / (float)Math.PI;
+		}
+
+		public static float GetDirection(this Vector2f target1, Vector2f target2) {
+			return (float)Math.Atan2(target2.Y - target1.Y, target2.X - target1.X);
+		}
+
+		public static int FindTurnSideDeg(this float input, float target) {
+			var diff = Math.Floor(input - target);
+			var val = 0;
+
+			if (diff < 0) diff += 360;
+			Logger.Print(diff.ToString());
+
+			if (diff == 0)
+				val = 0;
+			else if (diff < 270)
+				val = 1;
+			else if (diff > 270) 
+				val = -1;
+			return val;
 		}
 	}
 }
