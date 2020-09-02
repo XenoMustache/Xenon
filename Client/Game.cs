@@ -9,7 +9,7 @@ namespace Xenon.Client {
 		/// <summary>
 		/// Defines a default video mode for your game. See SFML definition for VideoMode;
 		/// </summary>
-		public VideoMode screenSettings;
+		public static VideoMode screenSettings;
 
 		/// <summary>
 		/// Defines the string shown on the titlebar of the game window.
@@ -44,6 +44,7 @@ namespace Xenon.Client {
 		/// <param name="screenSize"></param>
 		public Game(string name, Vector2u screenSize) {
 			this.name = name;
+
 			screenSettings = new VideoMode(screenSize.X, screenSize.Y);
 
 			Run();
