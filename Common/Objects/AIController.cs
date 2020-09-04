@@ -3,7 +3,7 @@
 namespace Xenon.Common.Objects {
 	public class AIController : GameObject {
 		public GameObject parent;
-		public AIState currentState { get; protected set; }
+		public AIState currentState;
 
 		public AIController(GameObject parent) {
 			this.parent = parent;
