@@ -3,9 +3,8 @@ using Newtonsoft.Json;
 using SFML.Graphics;
 using System;
 using System.Runtime.InteropServices;
-using Xenon.Common.Utilities;
 
-namespace Xenon.Common {
+namespace Xenon.Common.Objects {
 	public abstract class GameObject : IDisposable {
 		[JsonIgnore]
 		public bool disposed, pausedUpdate = false, pausedRender = false;

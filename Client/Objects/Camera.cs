@@ -1,8 +1,8 @@
 ﻿using SFML.Graphics;
 using SFML.System;
-using Xenon.Common;
+using Xenon.Common.Objects;
 
-namespace Xenon.Client.Prefabs {
+namespace Xenon.Client.Objects {
 	public class Camera : GameObject {
 		public float camZoom;
 		public Vector2f target, uiViewSize;
