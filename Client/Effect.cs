@@ -5,12 +5,12 @@ namespace Xenon.Client {
 	public abstract class Effect : Drawable {
 		public string name { get; private set; }
 
-		protected abstract void OnUpdate(float time);
+		protected abstract void OnUpdate(double deltaTime);
 		protected abstract void OnDraw(RenderTarget target, RenderStates states);
 
-		public void Update(float time) {
+		public void Update(double deltaTime) {
 			if (Shader.IsAvailable) {
-				OnUpdate(time);
+				OnUpdate(deltaTime);
 			}
 		}
 
