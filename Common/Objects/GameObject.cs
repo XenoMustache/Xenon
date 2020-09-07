@@ -4,22 +4,22 @@ using SFML.Graphics;
 using System;
 using System.Runtime.InteropServices;
 
-namespace Xenon.Common {
+namespace Xenon.Common.Objects {
 	public abstract class GameObject : IDisposable {
 		[JsonIgnore]
-		public bool disposed;
+		public bool disposed, pausedUpdate = false, pausedRender = false;
 
 		SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
 		/// <summary>
 		/// Called within the game loop, used to control the logic of the object.
 		/// </summary>
-		public abstract void Update(double deltaTime);
+		public virtual void Update(double deltaTime) { }
 
 		/// <summary>
 		/// Called outside of the game loop, used to control what is rendered onto the game window.
 		/// </summary>
-		public abstract void Render(RenderWindow window);
+		public virtual void Render(RenderWindow window) { }
 
 		public void Dispose() {
 			Dispose(true);

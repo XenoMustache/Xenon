@@ -1,10 +1,7 @@
-﻿using SFML.Graphics;
-using SFML.System;
+﻿using SFML.System;
 using System;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
-using System.Security.Principal;
 
 namespace Xenon.Common.Utilities {
 	/// <summary>
@@ -74,7 +71,6 @@ namespace Xenon.Common.Utilities {
 			var val = 0;
 
 			if (diff < 0) diff += 360;
-			Logger.Print(diff.ToString());
 
 			if (diff == 0)
 				val = 0;

@@ -3,6 +3,7 @@ using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Xenon.Common.Objects;
 
 namespace Xenon.Common.State {
 	public class GameState : IDisposable {
@@ -18,15 +19,15 @@ namespace Xenon.Common.State {
 		public virtual void Update(double deltaTime) {
 			if (!pausedUpdate && isInitialized) {
 				for (var i = 0; i < Objects.Count; i++) {
-					if (!Objects[i].disposed) Objects[i].Update(deltaTime);
+					if (!Objects[i].disposed && !Objects[i].pausedUpdate) Objects[i].Update(deltaTime);
 				}
 			}
 		}
 
 		public virtual void Render(RenderWindow window) {
-			if (!pausedUpdate && isInitialized) {
+			if (!pausedRender && isInitialized) {
 				for (var i = 0; i < Objects.Count; i++) {
-					if (!Objects[i].disposed) Objects[i].Render(window);
+					if (!Objects[i].disposed && !Objects[i].pausedRender) Objects[i].Render(window);
 				}
 			}
 		}
