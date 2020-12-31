@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Xenon.Engine {
 	public class Script {
-		string name;
+		readonly string name;
 		bool canExecute;
 
 		Assembly asm;
@@ -62,7 +62,6 @@ namespace Xenon.Engine {
 			else {
 				canExecute = false;
 				Console.WriteLine($"Script could not be found: \"{file}\"");
-				return;
 			}
 		}
 
