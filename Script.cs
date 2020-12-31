@@ -1,6 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Emit;
 using System;
 using System.IO;
 using System.Linq;
@@ -19,6 +18,7 @@ namespace Xenon.Engine {
 			this.name = name;
 		}
 
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S1481:Unused local variables should be removed", Justification = "<Pending>")]
 		public void Compile(string file) {
 			if (File.Exists(file)) {
 				Console.Write($"Compiling \"{file}\"...");
@@ -44,7 +44,7 @@ namespace Xenon.Engine {
 					options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
 				using (var ms = new MemoryStream()) {
-					EmitResult result = compilation.Emit(ms);
+					var result = compilation.Emit(ms);
 					ms.Seek(0, SeekOrigin.Begin);
 
 					try {

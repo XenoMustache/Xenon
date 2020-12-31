@@ -1,6 +1,3 @@
-﻿using System;
-
-namespace Xenon.Engine {
-	public class GameObject {
-	}
+﻿namespace Xenon.Engine {
+	public class GameObject { }
 }
