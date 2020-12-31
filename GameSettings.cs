@@ -34,5 +34,9 @@ namespace Xenon.Engine {
 			File.WriteAllText("Config\\GameSettings.json", json);
 			Console.WriteLine($"\n{"GameSettings.json"}:\n{json}");
 		}
+
+		public bool ShouldSerializegameLocation() {
+			return (gameLocation != null);
+		}
 	}
 }

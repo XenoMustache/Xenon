@@ -13,7 +13,12 @@ namespace Xenon.Engine {
 		}
 
 		public void Deserialize(string file) {
-			var str = Path.Combine(settings.gameLocation, "States", file);
+			var str = "";
+
+			if (settings.gameLocation != null)
+				str = Path.Combine(settings.gameLocation, "States", file);
+			else
+				str = Path.Combine("States", file);
 
 			if (File.Exists(str)) {
 				JsonConvert.PopulateObject(File.ReadAllText(str), this);
