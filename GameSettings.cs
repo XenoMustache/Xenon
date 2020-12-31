@@ -16,22 +16,22 @@ namespace Xenon.Engine {
 		}
 
 		public void Deserialize() {
-			if (File.Exists("GameSettings.json")) {
-				JsonConvert.PopulateObject(File.ReadAllText("GameSettings.json"), this);
+			if (File.Exists("Config\\GameSettings.json")) {
+				JsonConvert.PopulateObject(File.ReadAllText("Config\\GameSettings.json"), this);
 
-				Console.WriteLine("Game settings file found, loading...");
+				Console.WriteLine("\nGame settings file found, loading...");
 			}
 			else {
-				Console.WriteLine("No game settings file found, generating...");
+				Console.WriteLine("\nNo game settings file found, generating...");
 			}
 		}
 
 		public void Serialize() {
-			if (File.Exists("GameSettings.json")) File.Delete("GameSettings.json");
+			if (File.Exists("Config\\GameSettings.json")) File.Delete("Config\\GameSettings.json");
 
 			var json = JsonConvert.SerializeObject(this, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
 
-			File.WriteAllText("GameSettings.json", json);
+			File.WriteAllText("Config\\GameSettings.json", json);
 			Console.WriteLine($"\n{"GameSettings.json"}:\n{json}");
 		}
 	}
